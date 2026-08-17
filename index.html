@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0" />
+<meta name="theme-color" content="#2F5D50" />
+<title>Mis Remedios</title>
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-brand">
+    <span class="pill-icon" aria-hidden="true"></span>
+    <h1>Mis Remedios</h1>
+  </div>
+  <div class="clock" id="reloj">--:--</div>
+</header>
+
+<main id="app">
+
+  <!-- PANTALLA: HOY -->
+  <section id="pantalla-hoy" class="pantalla activa">
+
+    <div id="proxima-toma" class="tarjeta-proxima">
+      <p class="eyebrow">Cargando...</p>
+    </div>
+
+    <h2 class="titulo-seccion">Hoy</h2>
+    <div id="lista-hoy" class="lista-tomas"></div>
+
+    <button id="btn-registrar-ahora" class="boton boton-secundario boton-ancho">
+      Registrar una toma ahora
+    </button>
+  </section>
+
+  <!-- PANTALLA: MEDICAMENTOS -->
+  <section id="pantalla-meds" class="pantalla">
+    <h2 class="titulo-seccion">Mis medicamentos</h2>
+    <div id="lista-meds" class="lista-meds"></div>
+    <button id="btn-nuevo-med" class="boton boton-primario boton-ancho">
+      + Agregar medicamento
+    </button>
+  </section>
+
+  <!-- PANTALLA: HISTORIAL -->
+  <section id="pantalla-historial" class="pantalla">
+    <h2 class="titulo-seccion">Historial de tomas</h2>
+    <div id="lista-historial" class="lista-historial"></div>
+  </section>
+
+</main>
+
+<nav class="tabbar">
+  <button class="tab activo" data-pantalla="pantalla-hoy">
+    <span class="tab-icono">●</span>
+    <span>Hoy</span>
+  </button>
+  <button class="tab" data-pantalla="pantalla-meds">
+    <span class="tab-icono">✚</span>
+    <span>Medicamentos</span>
+  </button>
+  <button class="tab" data-pantalla="pantalla-historial">
+    <span class="tab-icono">≡</span>
+    <span>Historial</span>
+  </button>
+</nav>
+
+<!-- MODAL: agregar / editar medicamento -->
+<div id="modal-med" class="modal-fondo oculto">
+  <div class="modal-caja">
+    <h3 id="modal-med-titulo">Nuevo medicamento</h3>
+    <label class="campo">
+      <span>Nombre del medicamento</span>
+      <input type="text" id="input-nombre" placeholder="Ej: Losartán 50mg" />
+    </label>
+    <label class="campo">
+      <span>Indicación / dosis (opcional)</span>
+      <input type="text" id="input-dosis" placeholder="Ej: 1 comprimido con el desayuno" />
+    </label>
+    <label class="campo">
+      <span>Horarios de toma</span>
+    </label>
+    <div id="lista-horarios" class="lista-horarios"></div>
+    <button id="btn-agregar-horario" class="boton boton-texto">+ Agregar horario</button>
+
+    <label class="campo">
+      <span>Horas mínimas entre tomas (para evitar superposición)</span>
+      <input type="number" id="input-intervalo" min="1" max="48" value="8" />
+    </label>
+
+    <div class="modal-acciones">
+      <button id="btn-cancelar-med" class="boton boton-texto">Cancelar</button>
+      <button id="btn-eliminar-med" class="boton boton-peligro oculto">Eliminar</button>
+      <button id="btn-guardar-med" class="boton boton-primario">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: chequeo de toma -->
+<div id="modal-chequeo" class="modal-fondo oculto">
+  <div class="modal-caja">
+    <h3 id="chequeo-titulo">Es hora de tu remedio</h3>
+    <p id="chequeo-esperado" class="chequeo-esperado"></p>
+
+    <label class="campo">
+      <span>Escribí el nombre del medicamento que tomaste</span>
+      <input type="text" id="input-chequeo" placeholder="Escribí el nombre aquí" autocomplete="off" />
+    </label>
+
+    <div id="chequeo-alerta" class="alerta oculto"></div>
+
+    <div class="modal-acciones">
+      <button id="btn-cancelar-chequeo" class="boton boton-texto">Cerrar</button>
+      <button id="btn-confirmar-chequeo" class="boton boton-primario">Confirmar toma</button>
+    </div>
+  </div>
+</div>
+
+<!-- Aviso flotante (banner de recordatorio en pantalla) -->
+<div id="banner-recordatorio" class="banner oculto"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
